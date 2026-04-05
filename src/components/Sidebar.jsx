@@ -5,16 +5,19 @@ function Sidebar() {
   };
 
   return (
-    <div
-      style={{
-        width: "220px",
-        height: "100vh",
-        background: "#111827",
-        color: "white",
-        padding: "20px",
-        borderRight: "1px solid #1f2937",
-      }}
-    >
+      <div
+        style={{
+          width: "220px",
+          height: "100vh",
+          background: "#111827",
+          color: "white",
+          padding: "20px",
+          position: "fixed",   
+          top: 0,
+          left: 0,
+          overflowY: "auto",
+        }}
+  >
       {/* Branding */}
       <div style={{ marginBottom: "30px" }}>
         <h2
@@ -25,17 +28,9 @@ function Sidebar() {
             letterSpacing: "0.5px",
           }}
         >
-          Finance
+          Menu
         </h2>
-        <p
-          style={{
-            fontSize: "12px",
-            color: "#9ca3af",
-            marginTop: "4px",
-          }}
-        >
-          Dashboard Panel
-        </p>
+        
       </div>
 
       {/* Menu */}
