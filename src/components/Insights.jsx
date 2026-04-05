@@ -1,4 +1,4 @@
-function Insights({ data }) {
+function Insights({ data, theme }) {
   let income = 0;
   let expense = 0;
 
@@ -15,7 +15,6 @@ function Insights({ data }) {
     }
   });
 
-  // Find highest spending category
   let topCategory = "None";
   let max = 0;
 
@@ -27,47 +26,57 @@ function Insights({ data }) {
   }
 
   return (
-    <div style={{ marginTop: "50px" }}>
-      {/* Title */}
+    <div>
       <h2
         style={{
-          fontSize: "22px",
-          fontWeight: "700",
-          color: "#111827",
           textAlign: "center",
           marginBottom: "15px",
+          color: theme === "light" ? "#111827" : "#f9fafb",
         }}
       >
         Insights
       </h2>
 
-      {/* Card */}
       <div
         style={{
-          background: "white",
+          background: theme === "light" ? "white" : "#1f2937",
           padding: "20px",
           borderRadius: "12px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
           maxWidth: "500px",
           margin: "0 auto",
           textAlign: "center",
         }}
       >
-        <p style={{ fontWeight: "600", color: "#374151" }}>
+        <p
+          style={{
+            fontWeight: "600",
+            color: theme === "light" ? "#374151" : "#e5e7eb",
+          }}
+        >
           Top Spending Category: {topCategory}
         </p>
 
-        <p style={{ fontWeight: "600", color: "#374151" }}>
+        <p
+          style={{
+            fontWeight: "600",
+            color: theme === "light" ? "#374151" : "#e5e7eb",
+          }}
+        >
           Total Income: ₹{income.toLocaleString()}
         </p>
 
-        <p style={{ fontWeight: "600", color: "#374151" }}>
+        <p
+          style={{
+            fontWeight: "600",
+            color: theme === "light" ? "#374151" : "#e5e7eb",
+          }}
+        >
           Total Expense: ₹{expense.toLocaleString()}
         </p>
 
         <p
           style={{
-            marginTop: "12px",
+            marginTop: "10px",
             fontWeight: "700",
             color: income > expense ? "#16a34a" : "#dc2626",
           }}
