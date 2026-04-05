@@ -9,27 +9,21 @@ import Charts from "./components/Charts";
 import Insights from "./components/Insights";
 
 function App() {
-  // 🔍 State
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
-
-  // 👤 Role state
   const [role, setRole] = useState("viewer");
+  const [theme, setTheme] = useState("light");
 
-  // Calculate income
   const income = transactions
     .filter((t) => t.type === "income")
     .reduce((acc, t) => acc + t.amount, 0);
 
-  // Calculate expense
   const expense = transactions
     .filter((t) => t.type === "expense")
     .reduce((acc, t) => acc + t.amount, 0);
 
-  // Calculate balance
   const balance = income - expense;
 
-  // 🔍 Filter logic
   const filteredTransactions = transactions.filter((t) => {
     const matchesSearch =
       t.category.toLowerCase().includes(search.toLowerCase());
@@ -41,11 +35,28 @@ function App() {
   });
 
   return (
-    <div style={{ display: "flex", background: "#f9fafb" }}>
+    <div
+      style={{
+        display: "flex",
+        background: theme === "light" ? "#f9fafb" : "#111827",
+      }}
+    >
       <Sidebar />
 
-      <div style={{ flex: 1 }}>
-        <Navbar role={role} setRole={setRole} />
+      {/* ✅ MAIN CONTENT FIX */}
+      <div
+        style={{
+          marginLeft: "70px", // must match sidebar width
+          width: "100%", // 🔥 FIX FOR GAP
+          minHeight: "100vh",
+        }}
+      >
+        <Navbar
+          role={role}
+          setRole={setRole}
+          theme={theme}
+          setTheme={setTheme}
+        />
 
         <div style={{ padding: "25px" }}>
           {/* Cards */}
@@ -54,7 +65,6 @@ function App() {
             style={{
               display: "flex",
               gap: "20px",
-              justifyContent: "center",
               flexWrap: "wrap",
             }}
           >
@@ -74,20 +84,21 @@ function App() {
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer",
-                fontWeight: "500",
               }}
             >
               Add Transaction
             </button>
           )}
 
-          {/* Charts */}
+          {/* ✅ CHARTS FIX */}
           <div
             id="charts"
             style={{
               marginTop: "50px",
               display: "flex",
-              justifyContent: "center",
+              gap: "40px",
+              flexWrap: "wrap",
+              justifyContent: "flex-start",
             }}
           >
             <Charts data={transactions} />
@@ -95,7 +106,7 @@ function App() {
 
           {/* Insights */}
           <div id="insights" style={{ marginTop: "50px" }}>
-            <Insights data={transactions} />
+            <Insights data={transactions} theme={theme} />
           </div>
 
           {/* Search + Filter */}
@@ -103,8 +114,7 @@ function App() {
             style={{
               marginTop: "40px",
               display: "flex",
-              gap: "10px",
-              alignItems: "center",
+              gap: "12px",
             }}
           >
             <input
@@ -113,10 +123,9 @@ function App() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "6px",
-                border: "1px solid #d1d5db",
-                width: "200px",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #ccc",
               }}
             />
 
@@ -124,9 +133,8 @@ function App() {
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               style={{
-                padding: "8px 12px",
-                borderRadius: "6px",
-                border: "1px solid #d1d5db",
+                padding: "10px",
+                borderRadius: "8px",
               }}
             >
               <option value="all">All</option>
@@ -136,7 +144,7 @@ function App() {
           </div>
 
           {/* Table */}
-          <div id="transactions" style={{ marginTop: "20px" }}>
+          <div id="transactions" style={{ marginTop: "30px" }}>
             <TransactionTable data={filteredTransactions} />
           </div>
         </div>
