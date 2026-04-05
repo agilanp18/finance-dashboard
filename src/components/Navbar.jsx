@@ -1,15 +1,14 @@
-function Navbar({ role, setRole }) {
+function Navbar({ role, setRole, theme, setTheme }) {
   return (
     <div
       style={{
         height: "60px",
-        background: "#ffffff",
+        background: theme === "light" ? "#ffffff" : "#1f2937",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         padding: "0 30px",
         borderBottom: "1px solid #e5e7eb",
-        boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
       }}
     >
       {/* Title */}
@@ -17,14 +16,13 @@ function Navbar({ role, setRole }) {
         style={{
           fontSize: "20px",
           fontWeight: "700",
-          color: "#111827",
-          letterSpacing: "0.3px",
+          color: theme === "light" ? "#111827" : "#f9fafb",
         }}
       >
         Finance Dashboard
       </h1>
 
-      {/* Role Selector */}
+      {/* Right section */}
       <div
         style={{
           display: "flex",
@@ -35,8 +33,7 @@ function Navbar({ role, setRole }) {
         <span
           style={{
             fontSize: "14px",
-            color: "#6b7280",
-            fontWeight: "500",
+            color: theme === "light" ? "#6b7280" : "#d1d5db",
           }}
         >
           Role:
@@ -46,19 +43,31 @@ function Navbar({ role, setRole }) {
           value={role}
           onChange={(e) => setRole(e.target.value)}
           style={{
-            padding: "6px 12px",
+            padding: "6px 10px",
             borderRadius: "6px",
-            border: "1px solid #d1d5db",
-            background: "#ffffff",
-            color: "#111827",
-            fontWeight: "600",
-            cursor: "pointer",
-            outline: "none",
           }}
         >
           <option value="viewer">Viewer</option>
           <option value="admin">Admin</option>
         </select>
+
+        {/* 🌗 Theme Toggle */}
+        <button
+          onClick={() =>
+            setTheme(theme === "light" ? "dark" : "light")
+          }
+          style={{
+            padding: "6px 12px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+            background:
+              theme === "light" ? "#111827" : "#f9fafb",
+            color: theme === "light" ? "white" : "#111827",
+            cursor: "pointer",
+          }}
+        >
+          {theme === "light" ? "Dark" : "Light"}
+        </button>
       </div>
     </div>
   );
